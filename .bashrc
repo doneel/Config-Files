@@ -79,7 +79,10 @@ function shot
 
 function prev
 {
-     `search_history $1 | tail -1`
+     COMMAND=`cat ~/.bash_history | grep -v "prev" | grep -v "search_history" | grep $1 | tail -1`
+     echo $COMMAND
+     eval $COMMAND
+     #`search_history $1 | tail -1`
 }
 
 # =============== Alias Shortcuts =================
