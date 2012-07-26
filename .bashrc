@@ -74,15 +74,16 @@ function open {
 
 function shot
 {
-     scrot '%T_$wx$h_scrot.png' -c -d 5 -e 'mv $f /home/handy/data/.pics/.shots'
+     scrot $1 -c -d 5 #-e #'%T_$wx$h_scrot.png' -c -d 5 -e #'mv $f $1'
 }
 
+
+#Executes the last command you run that matches a grep pattern you provide
+#Written by me, pretty sweet, huh?
 function prev
 {
      COMMAND=`cat ~/.bash_history | grep -v "prev" | grep -v "search_history" | grep $1 | tail -1`
-     echo $COMMAND
      eval $COMMAND
-     #`search_history $1 | tail -1`
 }
 
 # =============== Alias Shortcuts =================
