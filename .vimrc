@@ -152,13 +152,10 @@ vnoremap H 0
 nnoremap L $
 nnoremap H 0
 
-" ================= Copy / Pate ======================
+noremap L $
+noremap H 0
 xmap p ]p         
-                    "While in visual mode, makes pasting respect the tabs of host line
 
-nmap <leader>c "+y
-nnoremap <leader>p "*p
-vnoremap <leader>p "*p
 
 " ================= Leader Macros ====================
 set timeout timeoutlen=400 ttimeoutlen=100   " 4/10 second to double tap
@@ -168,6 +165,11 @@ nmap <leader>w :w<CR>
 nmap <leader>wq :wq<CR>
 nmap <leader>rg :%s//g<left><left>
 nmap <leader>rn :%s//gc<left><left><left>
+
+
+" ================= Copy / Pate ======================
+set pastetoggle=<leader>p
+
 
 " ================= Appearance =======================
 colorscheme nuvola

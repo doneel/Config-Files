@@ -12,7 +12,7 @@ PS1='[\u@\h \W]\$ '
 
 export EDITOR="vim"
 export VISUAL="vim"
-
+export CLUTTER VBLANK=none
 
 
 # ============== History =========================
@@ -96,3 +96,4 @@ alias workbench=~/workbench
 alias lsize='ls --sort=size -lhr' # list by size
 alias ff='sudo find / -name $1'
 alias search_history='cat ~/.bash_history | grep -v "search_history" | grep $1'
+alias sauerbraten='sauerbraten-client 2>&1 | tee -a ~/space/sauerbraten/log.txt'
