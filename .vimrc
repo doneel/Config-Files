@@ -28,7 +28,6 @@ set formatoptions=tcql         " t - autowrap to textwidth
                                 " l - don't format already long lines
 
 
-
 " This makes vim act like all other editors, buffers can
 " exist in the background without being in a window.
 " http://items.sjbach.com/319/configuring-vim-right
@@ -141,24 +140,21 @@ nnoremap j gj
 nnoremap k gk
 
 " ================= Key Shortcuts ====================
-inoremap jj <Esc>
-cnoremap jj <Esc>
-vnoremap jj <Esc>
+inoremap jk <Esc>
+cnoremap jk <Esc>
+vnoremap jk <Esc>
 nnoremap ; :
 
                     "Home-row keys to go to end/start of line
-vnoremap L $
-vnoremap H 0
-nnoremap L $
-nnoremap H 0
+noremap L $
+noremap H 0
 
 noremap L $
 noremap H 0
 xmap p ]p         
 
-
 " ================= Leader Macros ====================
-set timeout timeoutlen=400 ttimeoutlen=100   " 4/10 second to double tap
+set timeout timeoutlen=50 ttimeoutlen=100   " 1/20 second to double tap
                                              " 1/10 for leader shortcuts
 let mapleader =" "
 nmap <leader>w :w<CR>
@@ -168,13 +164,19 @@ nmap <leader>rn :%s//gc<left><left><left>
 
 
 " ================= Copy / Pate ======================
-set pastetoggle=<leader>p
+"set pastetoggle=<leader>p
+map <leader>p "+p
+map <leader>y "+y
+"vnoremap "+y <leader>y
+"inoremap "+y <leader>y
 
 
 " ================= Appearance =======================
-colorscheme nuvola
-set background=light
-
+set  t_Co=256
+"let g:rehash256 = 1
+set background=dark
+colorscheme molokai
+set cursorline
 " ================= Buffer Switching =================
 map <C-j> <C-W>j
 map <C-k> <C-W>k
