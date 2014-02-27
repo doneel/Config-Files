@@ -2,7 +2,18 @@
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
+" ================ Package Management ================
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
 
+Bundle 'kien/ctrlp.vim'
+Bundle 'EasyMotion'
+
+let g:EasyMotion_leader_key = '<Leader>'
+
+filetype plugin indent on
+
+" ================= Easy Motion ======================
 " ================ General Config ====================
 
 set number                      "Line numbers are good
@@ -33,11 +44,12 @@ set formatoptions=tcql         " t - autowrap to textwidth
 " http://items.sjbach.com/319/configuring-vim-right
 set hidden
 
-"turn on syntax highlighting
-syntax on
+"================= Syntax Highlighting ==============
+filetype off
+set runtimepath+=$GOROOT/misc/vim
 filetype plugin on
 filetype indent on
-
+syntax on
 
 " ================ Search Settings  =================
 
@@ -82,8 +94,8 @@ set undofile
 set autoindent
 set smartindent
 set smarttab
-set shiftwidth=5
-set softtabstop=5
+set shiftwidth=4
+set softtabstop=4
 set expandtab            "Use spaces instead of tabs
 "set wrap                 "Wrap lines don't go onto th enext line please
 
@@ -140,9 +152,9 @@ nnoremap j gj
 nnoremap k gk
 
 " ================= Key Shortcuts ====================
-inoremap jk <Esc>
-cnoremap jk <Esc>
-vnoremap jk <Esc>
+inoremap fd <Esc>
+cnoremap fd <Esc>
+vnoremap fd <Esc>
 nnoremap ; :
 
                     "Home-row keys to go to end/start of line
@@ -151,30 +163,31 @@ noremap H 0
 
 noremap L $
 noremap H 0
-xmap p ]p         
+xmap p ]p 
 
 " ================= Leader Macros ====================
-set timeout timeoutlen=50 ttimeoutlen=100   " 1/20 second to double tap
+set timeout  timeoutlen=400 ttimeoutlen=100   " 1/5 second to double tap
                                              " 1/10 for leader shortcuts
 let mapleader =" "
-nmap <leader>w :w<CR>
-nmap <leader>wq :wq<CR>
+"nmap <leader>w :w<CR>
+"nmap <leader>wq :wq<CR>
 nmap <leader>rg :%s//g<left><left>
 nmap <leader>rn :%s//gc<left><left><left>
 
 
 " ================= Copy / Pate ======================
 "set pastetoggle=<leader>p
-map <leader>p "+p
-map <leader>y "+y
+noremap <leader>p "+p
+noremap <leader>y "+y
 "vnoremap "+y <leader>y
 "inoremap "+y <leader>y
 
 
 " ================= Appearance =======================
 set  t_Co=256
+"let g:molokai_original = 1
 "let g:rehash256 = 1
-set background=dark
+"set background=dark
 colorscheme molokai
 set cursorline
 " ================= Buffer Switching =================
@@ -182,3 +195,6 @@ map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
+
+nnoremap <C-j> :bp<CR>
+nnoremap <C-k> :bn<CR>
