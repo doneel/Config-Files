@@ -149,7 +149,7 @@ if &t_Co > 255
    hi Boolean         ctermfg=135
    hi Character       ctermfg=144
    hi Number          ctermfg=135
-   hi String          ctermfg=144
+   hi String          ctermfg=220
    hi Conditional     ctermfg=161               cterm=bold
    hi Constant        ctermfg=135               cterm=bold
    hi Cursor          ctermfg=16  ctermbg=253
@@ -222,7 +222,7 @@ if &t_Co > 255
 
    hi VertSplit       ctermfg=244 ctermbg=232   cterm=bold
    hi VisualNOS                   ctermbg=238
-   hi Visual                      ctermbg=235
+   hi Visual                      ctermbg=240
    hi WarningMsg      ctermfg=231 ctermbg=238   cterm=bold
    hi WildMenu        ctermfg=81  ctermbg=16
 
