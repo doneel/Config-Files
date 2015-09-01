@@ -3,11 +3,13 @@
 set nocompatible
 
 " ================ Package Management ================
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim/
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
 
-Bundle 'kien/ctrlp.vim'
-Bundle 'EasyMotion'
+Plugin 'kien/ctrlp.vim'
+Plugin 'EasyMotion'
+call vundle#end()
 
 let g:EasyMotion_leader_key = '<Leader>'
 let g:EasyMotion_smartcase = 1
@@ -151,6 +153,8 @@ set sidescroll=1
 " ================= Navigation =======================
 nnoremap j gj
 nnoremap k gk
+nnoremap J <c-d>
+nnoremap K <c-u>
 
 " ================= Key Shortcuts ====================
 inoremap fd <Esc>
