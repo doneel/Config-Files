@@ -5,20 +5,35 @@ set nocompatible
 " ================ Package Management ================
 set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-
-Plugin 'kien/ctrlp.vim'
-Plugin 'EasyMotion'
+Plugin 'VundleVim/Vundle.vim'       "package manager Vundle to manage plugins
+Plugin 'ctrlpvim/ctrlp.vim'         "file finding
+Plugin 'easymotion/vim-easymotion'  "quick movement
+Plugin 'ConradIrwin/vim-bracketed-paste'
 call vundle#end()
-
-let g:EasyMotion_leader_key = '<Leader>'
-let g:EasyMotion_smartcase = 1
-let g:EasyMotion_use_smartsign_us = 1 " US layout
 filetype plugin indent on
 
-" ================= Easy Motion ======================
-" ================ General Config ====================
 
+" ================= Easy Motion ======================
+let g:EasyMotion_leader_key = '<Leader>'
+"let g:EasyMotion_smartcase = 1
+"let g:EasyMotion_use_smartsign_us = 1 " US layout
+map s <Plug>(easymotion-bd-w)
+nmap s <Plug>(easymotion-overwin-w)
+
+
+" ================= CtrlP ===========================
+let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp' "cache results
+let g:ctrlp_clear_cache_on_exit = 0 "save cache for next run
+if executable('ag')
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""' "use ag to search
+endif
+
+
+" ================ Autoreload .vimrc =================
+autocmd! bufwritepost .vimrc source %
+
+
+" ================ General Config ====================
 set number                      "Line numbers are good
 set ruler                       "Always show location
 set backspace=indent,eol,start  "Allow backspace in insert mode
@@ -40,12 +55,13 @@ set formatoptions=tcql         " t - autowrap to textwidth
                                 " r - autoinsert comment leader with <Enter>
                                 " q - allow formatting of comments with :gq
                                 " l - don't format already long lines
-
+set autoread                    "Automatically reload file if it's been changed elsewhere
 
 " This makes vim act like all other editors, buffers can
 " exist in the background without being in a window.
 " http://items.sjbach.com/319/configuring-vim-right
 set hidden
+
 
 "================= Syntax Highlighting ==============
 filetype off
@@ -54,35 +70,33 @@ filetype plugin on
 filetype indent on
 syntax on
 
-" ================ Search Settings  =================
 
+" ================ Search Settings  =================
 "set incsearch        "Find the next match as we type the search (I don't actually like it"
 set ignorecase       "Ignore case when searching
 set smartcase        "Try to be smart about cases?
 set hlsearch         "Hilight searches by default
 set viminfo='100,f1  "Save up to 100 marks, enable capital marks
-
+vnoremap // y/<C-R>"<CR>
 
 
 " ================ Turn Off Swap Files ==============
-
 set noswapfile
 
 
 " ================ Backup Files =====================
-
 set backup
 set backupdir=~/.vim/backups
 
 
 " ================ Persistent Cursor Position =======
-
  autocmd BufReadPost *
      \ if line("'\"") > 0 && line("'\"") <= line("$") |
      \   exe "normal! g`\"" |
      \ endif
 
  set viminfo^=%          "Remember info about open buffers
+
 
 " ================ Persistent Undo ==================
 " Keep undo history across sessions, by storing in file.
@@ -91,6 +105,7 @@ set backupdir=~/.vim/backups
 silent !mkdir ~/.vim/backups > /dev/null 2>&1
 set undodir=~/.vim/backups
 set undofile
+
 
 " ================ Indentation ======================
 
@@ -112,8 +127,8 @@ vnoremap < <gv
                          "Block indent / outdent"
 vnoremap > >gv
 
-" ================ Delete Trailing Whitespace ======
 
+" ================ Delete Trailing Whitespace ======
 func! DeleteTrailingWS()
      exe "normal mz"
      %s/\s\+$//ge
@@ -122,17 +137,18 @@ endfunc
 autocmd BufWrite *.py :call DeleteTrailingWS()         "enabled in python
 autocmd BufWrite *.coffee :call DeleteTrailingWS()     "...and coffeescript
 
+
 " ================ Folds ============================
 
 set foldmethod=indent   "fold based on indent
 set foldnestmax=3       "deepest fold is 3 levels
 set nofoldenable        "dont fold by default
 
-" ================ Completion =======================
 
+" ================ Completion =======================
 set wildmode=list:longest
 set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
-set wildignore=*.o,*.obj,*~,*.pyc"stuff to ignore when tab completing
+set wildignore=*.o,*.obj,*~,*.pyc "stuff to ignore when tab completing
 set wildignore+=*vim/backups*
 set wildignore+=*sass-cache*
 set wildignore+=*DS_Store*
@@ -142,19 +158,21 @@ set wildignore+=*.gem
 set wildignore+=log/**
 set wildignore+=tmp/**
 set wildignore+=*.png,*.jpg,*.gif
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/vendor/*,*/\.git/*
 
 
 " ================ Scrolling ========================
-
 set scrolloff=5         "Start scrolling when we're 8 lines away from margins
 set sidescrolloff=15
 set sidescroll=1
+
 
 " ================= Navigation =======================
 nnoremap j gj
 nnoremap k gk
 nnoremap J <c-d>
 nnoremap K <c-u>
+
 
 " ================= Key Shortcuts ====================
 inoremap fd <Esc>
@@ -169,6 +187,7 @@ noremap H 0
 noremap L $
 noremap H 0
 xmap p ]p 
+
 
 " ================= Leader Macros ====================
 set timeout  timeoutlen=400 ttimeoutlen=100   " 1/5 second to double tap
@@ -195,6 +214,8 @@ set  t_Co=256
 "set background=dark
 colorscheme molokai
 set cursorline
+
+
 " ================= Buffer Switching =================
 map <C-j> <C-W>j
 map <C-k> <C-W>k
