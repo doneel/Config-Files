@@ -1,6 +1,26 @@
+
+" ================= Vundle Auto Install ==============
 " Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
+let has_vundle=1
+if !filereadable($HOME."/.vim/bundle/Vundle.vim/README.md")
+    echo "Installing Vundle..."
+    echo ""
+    silent !mkdir -p $HOME/.vim/bundle
+    silent !git clone https://github.com/gmarik/Vundle.vim $HOME/.vim/bundle/Vundle.vim
+    let has_vundle=0
+endif
+
+
+" =============== Colorscheme Auto Install ==========
+if !filereadable($HOME."/.vim/colors/molokai.vim")
+    echo "Downloading molokai colorscheme..."
+    echo ""
+    silent !mkdir -p $HOME/.vim/colors
+    silent !curl https://raw.githubusercontent.com/doneel/Config-Files/master/.vim/colors/molokai.vim > $HOME/.vim/colors/molokai.vim
+endif
+
 
 " ================ Package Management ================
 set rtp+=~/.vim/bundle/Vundle.vim/
@@ -10,6 +30,11 @@ Plugin 'ctrlpvim/ctrlp.vim'         "file finding
 Plugin 'easymotion/vim-easymotion'  "quick movement
 Plugin 'ConradIrwin/vim-bracketed-paste'
 call vundle#end()
+
+if has_vundle == 0
+    :silent! PluginInstall
+endif
+
 filetype plugin indent on
 
 
