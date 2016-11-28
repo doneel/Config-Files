@@ -29,13 +29,30 @@ Plugin 'VundleVim/Vundle.vim'       "package manager Vundle to manage plugins
 Plugin 'ctrlpvim/ctrlp.vim'         "file finding
 Plugin 'easymotion/vim-easymotion'  "quick movement
 Plugin 'ConradIrwin/vim-bracketed-paste'
+Plugin 'valloric/youcompleteme'
+Plugin 'scrooloose/syntastic'
+Plugin 'Chiel92/vim-autoformat'
+Plugin 'alfredodeza/pytest.vim'
 call vundle#end()
 
 if has_vundle == 0
     :silent! PluginInstall
+    :so $MYVIMRC
 endif
 
 filetype plugin indent on
+
+
+" ================= Syntastic ========================
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 0
+"let g:syntastic_check_on_wq = 0
+let g:syntastic_python_checkers = ['pylint']
 
 
 " ================= Easy Motion ======================
@@ -52,6 +69,10 @@ let g:ctrlp_clear_cache_on_exit = 0 "save cache for next run
 if executable('ag')
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""' "use ag to search
 endif
+
+" ================ Vim Autoformat ====================
+let g:formatter_yapf_style = 'google'
+"au BufWrite * :Autoformat
 
 
 " ================ Autoreload .vimrc =================
@@ -71,15 +92,15 @@ set autoread                    "Reload files changed outside vim
 set lazyredraw                  "Don't redraw while macro-ing
 set magic                       "For reg ex, turn magic on
 set showmatch                   "Hilight matching brackets
-set encoding=utf8               "standard encoding and en_US as lang
+"set encoding=utf8               "standard encoding and en_US as lang
 set ffs=unix,dos,mac            " Use Unix as the standard file type
 set autochdir                   "Set vim's directory to be the file's
 set ttyfast                        "My terminals are fast
 set formatoptions=tcql         " t - autowrap to textwidth
-                                " c - autowrap comments to textwidth
-                                " r - autoinsert comment leader with <Enter>
-                                " q - allow formatting of comments with :gq
-                                " l - don't format already long lines
+" c - autowrap comments to textwidth
+" r - autoinsert comment leader with <Enter>
+" q - allow formatting of comments with :gq
+" l - don't format already long lines
 set autoread                    "Automatically reload file if it's been changed elsewhere
 
 " This makes vim act like all other editors, buffers can
@@ -115,12 +136,12 @@ set backupdir=~/.vim/backups
 
 
 " ================ Persistent Cursor Position =======
- autocmd BufReadPost *
-     \ if line("'\"") > 0 && line("'\"") <= line("$") |
-     \   exe "normal! g`\"" |
-     \ endif
+autocmd BufReadPost *
+            \ if line("'\"") > 0 && line("'\"") <= line("$") |
+            \   exe "normal! g`\"" |
+            \ endif
 
- set viminfo^=%          "Remember info about open buffers
+set viminfo^=%          "Remember info about open buffers
 
 
 " ================ Persistent Undo ==================
@@ -137,8 +158,8 @@ set undofile
 set autoindent
 set smartindent
 set smarttab
-set shiftwidth=4
-set softtabstop=4
+set shiftwidth=2
+set softtabstop=2
 set expandtab            "Use spaces instead of tabs
 "set wrap                 "Wrap lines don't go onto th enext line please
 
@@ -148,16 +169,16 @@ set expandtab            "Use spaces instead of tabs
 "set nowrap       "Don't wrap lines
 set linebreak    "Wrap lines at convenient points
 
-vnoremap < <gv           
-                         "Block indent / outdent"
+vnoremap < <gv
+"Block indent / outdent"
 vnoremap > >gv
 
 
 " ================ Delete Trailing Whitespace ======
 func! DeleteTrailingWS()
-     exe "normal mz"
-     %s/\s\+$//ge
-       exe "normal `z"
+    exe "normal mz"
+    %s/\s\+$//ge
+    exe "normal `z"
 endfunc
 autocmd BufWrite *.py :call DeleteTrailingWS()         "enabled in python
 autocmd BufWrite *.coffee :call DeleteTrailingWS()     "...and coffeescript
@@ -203,20 +224,23 @@ nnoremap K <c-u>
 inoremap fd <Esc>
 cnoremap fd <Esc>
 vnoremap fd <Esc>
+if has('nvim')
+    tnoremap fd <C-\><C-n>
+end
 nnoremap ; :
 
-                    "Home-row keys to go to end/start of line
+"Home-row keys to go to end/start of line
 noremap L $
 noremap H 0
 
 noremap L $
 noremap H 0
-xmap p ]p 
+xmap p ]p
 
 
 " ================= Leader Macros ====================
 set timeout  timeoutlen=400 ttimeoutlen=100   " 1/5 second to double tap
-                                             " 1/10 for leader shortcuts
+" 1/10 for leader shortcuts
 let mapleader =" "
 "nmap <leader>w :w<CR>
 "nmap <leader>wq :wq<CR>
@@ -228,6 +252,7 @@ nmap <leader>rn :%s//gc<left><left><left>
 "set pastetoggle=<leader>p
 noremap <leader>p "+p
 noremap <leader>y "+y
+"set mouse=a
 "vnoremap "+y <leader>y
 "inoremap "+y <leader>y
 
