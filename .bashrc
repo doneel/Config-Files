@@ -10,10 +10,11 @@ PS1='[\u@\h \W]\$ '
 
 # ============== Environment ====================
 
-export EDITOR="vim"
-export VISUAL="vim"
+export EDITOR="nvim"
+export VISUAL="nvim"
 export CLUTTER VBLANK=none
-
+alias vim='nvim'
+set -o vi
 
 # ============== History =========================
 # Keep 1000 lines in .bash_history (default is 500)
@@ -97,3 +98,5 @@ alias lsize='ls --sort=size -lhr' # list by size
 alias ff='sudo find / -name $1'
 alias search_history='cat ~/.bash_history | grep -v "search_history" | grep $1'
 alias sauerbraten='sauerbraten-client 2>&1 | tee -a ~/space/sauerbraten/log.txt'
+
+# =============== i3 settings =====================

@@ -64,6 +64,8 @@ nmap s <Plug>(easymotion-overwin-w)
 
 
 " ================= CtrlP ===========================
+set shell=/bin/bash
+let g:ctrlp_show_hidden = 1
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp' "cache results
 let g:ctrlp_clear_cache_on_exit = 0 "save cache for next run
 if executable('ag')
@@ -252,6 +254,7 @@ nmap <leader>rn :%s//gc<left><left><left>
 "set pastetoggle=<leader>p
 noremap <leader>p "+p
 noremap <leader>y "+y
+set clipboard=unnamedplus
 "set mouse=a
 "vnoremap "+y <leader>y
 "inoremap "+y <leader>y
