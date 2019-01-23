@@ -1,0 +1,12 @@
+source ~/.vimrc
+
+" Press `f` to activate AceJump
+map <leader>f :action AceAction<CR>
+ map s :action AceAction<CR>
+
+" " Press `F` to activate Target Mode
+map <leader>F :action AceTargetAction<CR>
+
+" Press `g` to activate Line Mode
+map <leader>g :action AceLineAction<CR>
+
