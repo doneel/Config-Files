@@ -1,0 +1,13 @@
+#$if mode=vi
+  set keymap vi-command
+  "fd": vi-insertion-mode
+  set keymap vi-insert
+  "fd": vi-movement-mode
+#$endif
+set show-mode-in-prompt on
+set editing-mode vi
+"\C-x\C-r": re-read-init-file
+set editing-mode vi
+set show-mode-in-prompt on
+set vi-ins-mode-string \1\e[6 q\2
+set vi-cmd-mode-string \1\e[2 q\2
